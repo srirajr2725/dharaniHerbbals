@@ -1,0 +1,218 @@
+.navbar-clean {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  border-top: 4px solid #8B5A2B; /* Earthy brown top bar */
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 80px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Left Section: Logo */
+.nav-brand-container {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Pushes center section */
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Center Section: Links */
+.nav-links-center {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  justify-content: center;
+}
+
+.nav-link {
+  color: #333333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--transition-fast);
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-primary-dark);
+}
+
+.nav-link-dropdown-icon {
+  margin-top: 2px;
+  stroke-width: 2.5;
+}
+
+/* "New" Badge */
+.badge-container {
+  position: relative;
+}
+
+.badge-new {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #A30000; /* Deep red */
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Downward pointing arrow for the badge */
+.badge-new::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px 4px 0;
+  border-style: solid;
+  border-color: #A30000 transparent transparent transparent;
+  display: block;
+  width: 0;
+}
+
+/* Right Section: Icons */
+.nav-icons-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  flex: 1; /* Pushes center section */
+}
+
+.nav-icon-btn {
+  background: none;
+  border: none;
+  color: #333333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  padding: 4px;
+}
+
+.nav-icon-btn:hover {
+  color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #333333;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001; /* Above drawer */
+}
+
+.mobile-menu-drawer {
+  position: fixed;
+  top: 80px; /* Below navbar */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999;
+  transform: translateY(-150%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  border-bottom: 4px solid #8B5A2B;
+}
+
+.mobile-menu-drawer.open {
+  transform: translateY(0);
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  gap: 12px;
+}
+
+.mobile-nav-link {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: color 0.2s;
+}
+
+.mobile-nav-link:hover, .mobile-nav-link.active {
+  color: var(--color-primary-dark);
+}
+
+@media (max-width: 1024px) {
+  .nav-links-center {
+    gap: 16px;
+  }
+  .nav-link {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .navbar-clean {
+    padding: 0 20px;
+    height: 70px;
+  }
+  
+  .mobile-menu-drawer {
+    top: 70px;
+    height: calc(100vh - 70px);
+  }
+
+  .nav-links-center {
+    display: none; /* Hide desktop links on mobile */
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-brand-container {
+    justify-content: center;
+    flex: 1;
+  }
+
+  .nav-icons-right {
+    flex: none;
+    gap: 12px;
+  }
+}

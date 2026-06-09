@@ -1,0 +1,187 @@
+.gr-container {
+  width: 100%;
+  padding: 60px 0;
+  background: #f8f9fa; /* Very light gray to match Google UI background */
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Top Summary Card */
+.gr-summary-card {
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  background: white;
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.gr-google-logo {
+  margin-bottom: 12px;
+}
+
+.gr-rating-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.gr-score {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #202124;
+}
+
+.gr-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.gr-based-on {
+  font-size: 0.9rem;
+  color: #5f6368;
+  margin-bottom: 20px;
+}
+
+.gr-write-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gr-write-btn:hover {
+  background: #1557b0;
+  box-shadow: 0 2px 6px rgba(26,115,232,0.3);
+}
+
+/* Marquee Track Container */
+.gr-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  padding: 20px 0;
+  /* Soft fade on edges */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.gr-marquee-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  padding-left: 24px;
+}
+
+/* Pause animation on hover */
+.gr-marquee-wrapper:hover .gr-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Translate exactly half of the duplicated track width */
+    transform: translateX(calc(-50% - 12px)); 
+  }
+}
+
+/* Review Cards */
+.gr-review-card {
+  width: 350px;
+  background: white;
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+  padding: 20px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease;
+}
+
+.gr-review-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.gr-review-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.gr-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.gr-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.gr-author-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0 0 4px 0;
+}
+
+.gr-author-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gr-review-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.gr-review-time {
+  font-size: 0.85rem;
+  color: #70757a;
+}
+
+.gr-review-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #3c4043;
+  margin: 0;
+  /* Add multiline truncation if it gets too long */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .gr-review-card {
+    width: 280px;
+  }
+}

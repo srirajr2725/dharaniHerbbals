@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './ShoppableVideos.css';
 
 // Product images
@@ -19,6 +20,7 @@ const videoData = [
 
 export default function ShoppableVideos() {
   const sliderRef = useRef(null);
+  const { addToCart } = useCart();
 
   const scrollLeft = () => sliderRef.current?.scrollBy({ left: -320, behavior: 'smooth' });
   const scrollRight = () => sliderRef.current?.scrollBy({ left: 320, behavior: 'smooth' });
@@ -58,7 +60,10 @@ export default function ShoppableVideos() {
                   <h4 className="sv-product-title">{item.title}</h4>
                   <div className="sv-product-price">{item.price}</div>
                 </div>
-                <button className="sv-buy-btn">
+                <button 
+                  className="sv-buy-btn" 
+                  onClick={() => addToCart({ id: item.id, name: item.title, price: item.price, image: item.productImg })}
+                >
                   <ShoppingBag size={18} />
                 </button>
               </div>

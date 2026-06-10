@@ -5,6 +5,7 @@ import { ShoppingCart, ShieldCheck, Leaf, Truck, ChevronDown, ChevronUp } from '
 import imgLifestyle from '../assets/herbal_lifestyle.png';
 import imgIngredients from '../assets/herbal_ingredients.png';
 import imgTexture from '../assets/herbal_texture.png';
+import { useCart } from '../context/CartContext';
 import './ProductDetails.css';
 
 export default function ProductDetails() {
@@ -14,6 +15,7 @@ export default function ProductDetails() {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const { addToCart } = useCart();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,9 +64,10 @@ export default function ProductDetails() {
           {/* Main Image */}
           <div className="pd-pro-main-image-container">
             <img 
+              key={currentImgIndex}
               src={images[currentImgIndex]} 
               alt={product.name} 
-              className={`pd-pro-main-image ${currentImgIndex === 0 ? 'auto-3d-spin' : ''}`}
+              className="pd-pro-main-image"
             />
             {product.badge && (
               <div className={`pro-badge badge-${product.badgeColor}`}>
@@ -107,7 +110,7 @@ export default function ProductDetails() {
               <input type="text" value={quantity} readOnly />
               <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
-            <button className="btn-pro-primary">
+            <button className="btn-pro-primary" onClick={() => addToCart(product, quantity)}>
               <ShoppingCart size={20} /> Add to Cart
             </button>
           </div>

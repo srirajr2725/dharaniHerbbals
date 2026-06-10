@@ -1,4 +1,5 @@
 import { Tag, Heart, Flame, ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './HandpickedDeals.css';
 
 // Using existing assets for soap images
@@ -19,6 +20,7 @@ const dealProducts = [
 ];
 
 export default function HandpickedDeals() {
+  const { addToCart } = useCart();
   return (
     <div className="deals-container">
       <div className="deals-header reveal">
@@ -62,7 +64,7 @@ export default function HandpickedDeals() {
               
               <div className="deal-bottom-row">
                 <div className="deal-price">{product.price}</div>
-                <button className="deal-buy-btn">
+                <button className="deal-buy-btn" onClick={() => addToCart(product)}>
                   <ShoppingCart size={18} />
                   <span>Grab Deal</span>
                 </button>

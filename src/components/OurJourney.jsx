@@ -1,10 +1,12 @@
 import { Sparkles, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './OurJourney.css';
 
 // Using a placeholder asset. Replace with the actual team photo later.
 import teamPhoto from '../assets/grp.png'; 
 
 export default function OurJourney() {
+  const navigate = useNavigate();
   return (
     <div className="journey-container">
       
@@ -47,10 +49,10 @@ export default function OurJourney() {
           </p>
 
           <div className="journey-actions">
-            <button className="btn-explore-solid">
+            <button className="btn-explore-solid" onClick={() => navigate('/shop')}>
               Explore Our Products <ArrowRight size={18} />
             </button>
-            <button className="btn-get-touch-outline">
+            <button className="btn-get-touch-outline" onClick={() => navigate('/contact')}>
               Get In Touch
             </button>
           </div>

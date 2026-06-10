@@ -171,12 +171,45 @@
   padding: 20px;
   z-index: 1;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  animation: autoFloatCard 4s ease-in-out infinite alternate;
+}
+
+.product-card.vilvah:nth-child(odd) {
+  animation-delay: 0s;
+}
+.product-card.vilvah:nth-child(even) {
+  animation-delay: 2s;
+}
+
+@keyframes autoFloatCard {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+.product-card.vilvah::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: all 0.7s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.product-card.vilvah:hover::before {
+  left: 200%;
 }
 
 .product-card.vilvah:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 45px rgba(34, 197, 94, 0.1);
-  background: rgba(255, 255, 255, 0.9);
+  animation-play-state: paused;
+  transform: translateY(-12px);
+  box-shadow: 0 25px 45px rgba(34, 197, 94, 0.15);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .product-img-wrapper {
@@ -205,14 +238,21 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   z-index: 1;
   border-radius: 12px;
   mix-blend-mode: multiply; /* This magically hides the white background of the image! */
+  animation: gentleFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes gentleFloat {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  100% { transform: translateY(-10px) scale(1.05) rotate(1deg); }
 }
 
 .product-card.vilvah:hover .product-img {
-  transform: scale(1.03);
+  animation-play-state: paused;
+  transform: scale(1.08) translateY(-5px);
 }
 
 /* Flush Rectangular Badges */
@@ -228,6 +268,13 @@
   border-radius: 12px 0 12px 0;
   letter-spacing: 0.2px;
   box-shadow: none;
+  animation: badgePulse 2s infinite ease-in-out;
+}
+
+@keyframes badgePulse {
+  0% { transform: scale(1) rotate(-3deg); }
+  50% { transform: scale(1.1) rotate(0deg); }
+  100% { transform: scale(1) rotate(-3deg); }
 }
 
 /* Mapping generic colors to the earthy screenshot colors */
@@ -338,13 +385,42 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+  animation: btnBreathe 3s infinite alternate ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes btnBreathe {
+  0% { box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2); transform: translateY(0) scale(1); }
+  100% { box-shadow: 0 12px 25px rgba(34, 197, 94, 0.4); transform: translateY(-1px) scale(1.01); }
 }
 
 .btn-add-to-cart:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(34, 197, 94, 0.3);
+  animation-play-state: paused;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(34, 197, 94, 0.5);
+}
+
+.btn-add-to-cart::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.btn-add-to-cart:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: 0s;
 }
 
 .btn-view-more {

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import './FeaturedBanners.css';
 
 // Using existing assets for the 3 posters
@@ -12,11 +13,12 @@ const banners = [
 ];
 
 export default function FeaturedBanners() {
+  const navigate = useNavigate();
   return (
     <div className="fb-container">
       <div className="fb-grid">
         {banners.map((banner) => (
-          <div key={banner.id} className="fb-card">
+          <div key={banner.id} className="fb-card" onClick={() => navigate('/shop')}>
             <img src={banner.image} alt={banner.alt} className="fb-img" />
             <div className="fb-overlay">
               <span className="fb-explore-btn">Explore Now</span>

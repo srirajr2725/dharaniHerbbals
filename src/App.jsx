@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import CartDrawer from './components/CartDrawer';
+import { useCart } from './context/CartContext';
 import ImageSlider from './components/ImageSlider';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -8,7 +10,10 @@ import Shop from './pages/Shop';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import ProductDetails from './pages/ProductDetails';
+import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 import { ShoppingCart } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import './App.css';
 import './pages/Shop.css'; // Reuse shop styles for grid
 
@@ -131,6 +136,9 @@ const featuredProducts = [
 ];
 
 function Home() {
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -190,7 +198,7 @@ function Home() {
                   )}
                 </div>
                 
-                <button className="btn-add-to-cart">
+                <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
                   Add To Cart
                 </button>
               </div>
@@ -215,28 +223,28 @@ function Home() {
             <img src={ad1} alt="Ad 1" className="bento-img" />
             <div className="bento-overlay">
               <h3>Skin Brightening</h3>
-              <button className="bento-btn">Shop Collection ➔</button>
+              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
             </div>
           </div>
           <div className="bento-item bento-square">
             <img src={ad2} alt="Ad 2" className="bento-img" />
             <div className="bento-overlay">
               <h3>Herbal Hair Care</h3>
-              <button className="bento-btn">Shop Collection ➔</button>
+              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
             </div>
           </div>
           <div className="bento-item bento-square">
             <img src={ad3} alt="Ad 3" className="bento-img" />
             <div className="bento-overlay">
               <h3>Natural Bath</h3>
-              <button className="bento-btn">Shop Collection ➔</button>
+              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
             </div>
           </div>
           <div className="bento-item bento-wide">
             <img src={ad4} alt="Ad 4" className="bento-img" />
             <div className="bento-overlay">
               <h3>Wellness & Vitality</h3>
-              <button className="bento-btn">Shop Collection ➔</button>
+              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
             </div>
           </div>
         </div>
@@ -279,25 +287,37 @@ function Home() {
   );
 }
 
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="app-container">
+      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <CartDrawer />}
+      {!isAdminRoute && <CategoryStrip />}
+      <main className="main-content" style={isAdminRoute ? { padding: 0 } : {}}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin/*" element={<Admin />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
-      <div className="app-container">
-        <Navbar />
-        <CategoryStrip />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-      </div>
+      <AppContent />
     </Router>
   );
 }

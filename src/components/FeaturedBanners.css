@@ -19,7 +19,35 @@
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: autoFloatFb 5s ease-in-out infinite alternate;
+}
+
+.fb-card:nth-child(1) { animation-delay: 0s; }
+.fb-card:nth-child(2) { animation-delay: 1.5s; }
+.fb-card:nth-child(3) { animation-delay: 3s; }
+
+@keyframes autoFloatFb {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+.fb-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: all 0.7s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.fb-card:hover::before {
+  left: 200%;
 }
 
 .fb-img {
@@ -27,6 +55,12 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
+  animation: gentleZoomFb 6s ease-in-out infinite alternate;
+}
+
+@keyframes gentleZoomFb {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
 }
 
 .fb-overlay {
@@ -50,15 +84,24 @@
   transform: translateY(20px);
   transition: transform 0.4s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: btnPulseFb 2s infinite;
+}
+
+@keyframes btnPulseFb {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
 }
 
 .fb-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0, 137, 80, 0.15);
+  animation-play-state: paused;
+  transform: translateY(-12px);
+  box-shadow: 0 16px 40px rgba(0, 137, 80, 0.2);
 }
 
 .fb-card:hover .fb-img {
-  transform: scale(1.05);
+  animation-play-state: paused;
+  transform: scale(1.08);
 }
 
 .fb-card:hover .fb-overlay {

@@ -175,16 +175,40 @@
   /* The ultra UI soft glowing green border/shadow behind the image */
   box-shadow: 0 24px 64px -12px rgba(34, 197, 94, 0.4);
   background: white;
-  padding: 8px;
+  padding: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.journey-image-glow-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent 60%, #22c55e 100%);
+  animation: spinRingJourney 3s linear infinite;
+  z-index: 0;
+}
+
+@keyframes spinRingJourney {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .journey-team-photo {
   width: 100%;
   height: auto;
-  border-radius: 16px;
+  border-radius: 18px;
   display: block;
   object-fit: cover;
   transition: transform 0.5s ease;
+  position: relative;
+  z-index: 1;
+  background: white;
 }
 
 .journey-image-glow-wrapper:hover .journey-team-photo {

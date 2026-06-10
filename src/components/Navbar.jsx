@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Leaf, ChevronDown, Search, User, ShoppingBag, Zap, Menu, X } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toggleCart, cartCount } = useCart();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -58,8 +60,11 @@ export default function Navbar() {
           />
         </Link>
 
-        <button className="nav-icon-btn" aria-label="Shopping Bag">
+        <button className="nav-icon-btn" aria-label="Shopping Bag" onClick={toggleCart} style={{ position: 'relative' }}>
           <ShoppingBag size={22} strokeWidth={1.5} />
+          {cartCount > 0 && (
+            <span className="cart-badge-count">{cartCount}</span>
+          )}
         </button>
       </div>
       

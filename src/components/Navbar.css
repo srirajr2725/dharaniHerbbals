@@ -435,6 +435,22 @@
 
 /* Responsive */
 @media (max-width: 900px) {
+  .navbar-ultra {
+    padding: 12px 16px;
+  }
+
+  .navbar-ultra.scrolled {
+    padding: 0; /* Dock to top edges when scrolled on mobile */
+  }
+
+  .navbar-ultra.scrolled .navbar-container {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    height: 64px; /* slightly slimmer on mobile scroll */
+  }
+
   .nav-links-center {
     display: none;
   }

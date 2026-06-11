@@ -49,69 +49,55 @@
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  perspective: 1000px; /* Enable 3D space */
 }
 
 .category-blob-wrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
-  animation: catFloat 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(0deg);
 }
 
-.category-blob {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  height: 150%;
-  background: conic-gradient(from 0deg, transparent 40%, #22c55e 100%);
-  animation: spinRing 2s linear infinite;
-  z-index: 1;
-}
 
-@keyframes spinRing {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
 
-@keyframes catFloat {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
-}
+/* Removed catFloat3D to keep the 3D flip perfectly clean */
 
 /* The actual image inside the circle */
 .category-img {
   position: relative;
   z-index: 2;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
   object-fit: cover;
   border-radius: 50%;
   background: white;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: catImgPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes catImgPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
 }
 
 /* Premium Hover Effects */
 .category-item:hover .category-blob-wrapper {
-  animation-play-state: paused;
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(34, 197, 94, 0.2);
+  /* Full 3D Rotate Effect! */
+  transform: perspective(1000px) translateY(-15px) rotateY(360deg) scale(1.1);
+  box-shadow: 0 30px 40px rgba(34, 197, 94, 0.25);
 }
 
-.category-item:hover .category-blob {
-  background: conic-gradient(from 0deg, transparent 10%, #22c55e 100%);
-  animation: spinRing 1s linear infinite;
-}
+
 
 .category-item:hover .category-img {
   transform: scale(1.1);
@@ -121,15 +107,22 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 18px;
+  padding: 10px 22px;
   border: 1px solid #e5e7eb;
   border-radius: 24px;
   background: white;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: #374151;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  animation: catBtnFloat 4s ease-in-out infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes catBtnFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
 }
 
 .cat-btn-icon {
@@ -157,7 +150,11 @@
     gap: 24px;
   }
   .category-blob-wrapper {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+  }
+  .category-btn {
+    padding: 8px 18px;
+    font-size: 0.9rem;
   }
 }

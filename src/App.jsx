@@ -21,16 +21,25 @@ import CategoryStrip from './components/CategoryStrip';
 import ShoppableVideos from './components/ShoppableVideos';
 import GoogleReviews from './components/GoogleReviews';
 import HandpickedDeals from './components/HandpickedDeals';
-import FeaturedBanners from './components/FeaturedBanners';
 import OurJourney from './components/OurJourney';
 import TrustBadges from './components/TrustBadges';
 import Footer from './components/Footer';
+import FloatingSocials from './components/FloatingSocials';
 
-// Ads for Home
-import ad1 from './assets/ad1.png';
-import ad2 from './assets/ad2.png';
-import ad3 from './assets/ad3.png';
-import ad4 from './assets/ad4.png';
+import s1 from './assets/S1.jpeg';
+import s2 from './assets/S2.jpeg';
+import s3 from './assets/S3.jpeg';
+import s4 from './assets/S4.jpeg';
+import s5 from './assets/S5.jpeg';
+import s6 from './assets/S6.jpeg';
+import s7 from './assets/S7.jpeg';
+import s8 from './assets/S8.jpeg';
+import s9 from './assets/S9.jpeg';
+import s10 from './assets/S10.jpeg';
+import s11 from './assets/S11.jpeg';
+import s12 from './assets/S12.jpeg';
+import s13 from './assets/S13.jpeg';
+import s14 from './assets/S14.jpeg';
 
 // Featured Products
 import p1 from './assets/1.png';
@@ -139,6 +148,23 @@ function Home() {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
+  const promoAds = [
+    { img: s1, alt: "Promo 1" },
+    { img: s2, alt: "Promo 2" },
+    { img: s3, alt: "Promo 3" },
+    { img: s4, alt: "Promo 4" },
+    { img: s5, alt: "Promo 5" },
+    { img: s6, alt: "Promo 6" },
+    { img: s7, alt: "Promo 7" },
+    { img: s8, alt: "Promo 8" },
+    { img: s9, alt: "Promo 9" },
+    { img: s10, alt: "Promo 10" },
+    { img: s11, alt: "Promo 11" },
+    { img: s12, alt: "Promo 12" },
+    { img: s13, alt: "Promo 13" },
+    { img: s14, alt: "Promo 14" }
+  ];
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -148,7 +174,7 @@ function Home() {
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -157,21 +183,25 @@ function Home() {
       {/* Full-width Image Slider */}
       <ImageSlider />
 
+      <CategoryStrip />
+
       <div className="page-container" style={{ paddingTop: '60px' }}>
         
         {/* Featured Products Section (Ultra UI Bestsellers) */}
-        <div className="reveal" style={{ textAlign: 'center', marginBottom: '30px' }}>
-          <h2 className="section-title" style={{ color: '#8b7355', fontSize: '2.5rem' }}>Bestsellers</h2>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <h2 className="section-title" style={{ color: '#166534', fontSize: '3rem', fontWeight: '800', marginBottom: '10px' }}>
+            Our Most Loved Picks
+          </h2>
+          <p style={{ color: '#4b5563', fontSize: '1.15rem', maxWidth: '750px', margin: '0 auto', lineHeight: '1.6' }}>
+            Immerse yourself in our quintessential collection of highly sought-after botanical remedies, meticulously crafted to deliver an uncompromised standard of holistic nourishment and transformative wellness.
+          </p>
         </div>
 
-        <div className="product-grid reveal">
+        <div className="product-grid reveal-stagger">
           {featuredProducts.map((product) => (
             <div key={product.id} className="product-card vilvah">
               <Link to={`/product/${product.id}`} className="product-img-link" style={{ textDecoration: 'none' }}>
                 <div className="product-img-wrapper">
-                  {product.badge && product.badgeColor !== 'green-circle' && (
-                    <div className={`product-badge badge-${product.badgeColor}`}>{product.badge}</div>
-                  )}
                   <img src={product.image} alt={product.name} className="product-img" />
                 </div>
               </Link>
@@ -188,19 +218,21 @@ function Home() {
                 </Link>
                 <p className="product-subtitle">{product.subtitle}</p>
                 
-                <div className="product-price-block">
-                  <span className="current-price">{product.price}</span>
-                  {product.originalPrice && <span className="original-price">{product.originalPrice}</span>}
-                  {product.discount && (
-                    <span className="discount-pill">
-                      <span className="discount-dot">•</span> {product.discount}
-                    </span>
-                  )}
+                <div className="product-price-row">
+                  <div className="product-price-block">
+                    <span className="current-price">{product.price}</span>
+                    {product.originalPrice && <span className="original-price">{product.originalPrice}</span>}
+                    {product.discount && (
+                      <span className="discount-pill">
+                        <span className="discount-dot">•</span> {product.discount}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <button className="btn-add-to-cart-icon" onClick={(e) => { e.preventDefault(); addToCart(product); }} title="Add to Cart">
+                    <ShoppingCart size={20} />
+                  </button>
                 </div>
-                
-                <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
-                  Add To Cart
-                </button>
               </div>
             </div>
           ))}
@@ -214,38 +246,21 @@ function Home() {
 
         {/* Bento Grid Ads Section */}
         <div className="reveal" style={{ marginTop: '80px' }}>
-          <h2 className="section-title">Special Promotions</h2>
-          <p className="section-subtitle">Discover our latest deals and exclusive herbal wellness packages.</p>
+          <h2 className="section-title">The Apothecary Reserve</h2>
+          <p className="section-subtitle">Experience the pure potency of our most exclusive, small-batch herbal blends.</p>
         </div>
         
-        <div className="bento-grid reveal">
-          <div className="bento-item bento-large">
-            <img src={ad1} alt="Ad 1" className="bento-img" />
-            <div className="bento-overlay">
-              <h3>Skin Brightening</h3>
-              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
-            </div>
-          </div>
-          <div className="bento-item bento-square">
-            <img src={ad2} alt="Ad 2" className="bento-img" />
-            <div className="bento-overlay">
-              <h3>Herbal Hair Care</h3>
-              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
-            </div>
-          </div>
-          <div className="bento-item bento-square">
-            <img src={ad3} alt="Ad 3" className="bento-img" />
-            <div className="bento-overlay">
-              <h3>Natural Bath</h3>
-              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
-            </div>
-          </div>
-          <div className="bento-item bento-wide">
-            <img src={ad4} alt="Ad 4" className="bento-img" />
-            <div className="bento-overlay">
-              <h3>Wellness & Vitality</h3>
-              <button className="bento-btn" onClick={() => navigate('/shop')}>Shop Collection ➔</button>
-            </div>
+        {/* Auto-Sliding Promo Train */}
+        <div className="promo-slider-container reveal-stagger">
+          <div className="promo-train-track">
+            {[...promoAds, ...promoAds].map((ad, index) => (
+              <div key={index} className="promo-slider-item" onClick={() => navigate('/shop')}>
+                <img src={ad.img} alt={ad.alt} className="promo-slider-img" />
+                <div className="promo-slider-action">
+                  <span className="arrow-icon">↗</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -262,11 +277,6 @@ function Home() {
         {/* Handpicked Deals Section */}
         <div className="reveal">
           <HandpickedDeals />
-        </div>
-
-        {/* Featured Banners Section */}
-        <div className="reveal">
-          <FeaturedBanners />
         </div>
 
         {/* Our Journey Section */}
@@ -295,7 +305,7 @@ function AppContent() {
     <div className="app-container">
       {!isAdminRoute && <Navbar />}
       {!isAdminRoute && <CartDrawer />}
-      {!isAdminRoute && <CategoryStrip />}
+      {!isAdminRoute && <FloatingSocials />}
       <main className="main-content" style={isAdminRoute ? { padding: 0 } : {}}>
         <Routes>
           <Route path="/" element={<Home />} />

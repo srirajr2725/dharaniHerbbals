@@ -12,6 +12,10 @@ import ba1 from '../assets/ba_carrot.png';
 import ba2 from '../assets/ba_beetroot.png';
 import ba3 from '../assets/ba_powder.png';
 
+// Videos
+import beetVideo from '../assets/beet.mp4';
+import hairVideo from '../assets/3d.mp4';
+
 const slides = [
   {
     id: 1,
@@ -22,7 +26,8 @@ const slides = [
     discountPrice: '₹249',
     productImg: p1,
     baImg: ba1,
-    bgGradient: 'linear-gradient(135deg, #4A2E1B 0%, #8E5A35 100%)'
+    bgVideo: hairVideo,
+    bgGradient: 'linear-gradient(135deg, #4A2E1B 0%, #8E5A35 50%, #4A2E1B 100%)'
   },
   {
     id: 2,
@@ -32,19 +37,8 @@ const slides = [
     originalPrice: '₹350',
     discountPrice: '₹249',
     productImg: p2,
-    baImg: ba2,
-    bgGradient: 'linear-gradient(135deg, #4A1B28 0%, #8E3547 100%)'
-  },
-  {
-    id: 3,
-    productName: 'Makil Nalangu Powder',
-    mainTitle: "The Viral Baby Bath \n Everyone's Talking About!",
-    offer: 'FLAT 18% OFF',
-    originalPrice: '₹220',
-    discountPrice: '₹180',
-    productImg: p4,
-    baImg: ba3,
-    bgGradient: 'linear-gradient(135deg, #4A431B 0%, #8E8235 100%)'
+    bgVideo: beetVideo,
+    bgGradient: 'linear-gradient(135deg, #4A1B28 0%, #8E3547 50%, #4A1B28 100%)'
   }
 ];
 
@@ -57,7 +51,7 @@ export default function ImageSlider() {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       goToNext();
-    }, 5000);
+    }, 10000); // Increased slider duration to 10 seconds
   };
 
   useEffect(() => {
@@ -93,31 +87,53 @@ export default function ImageSlider() {
         else if (index === prevIndex) className += ' previous';
 
         return (
-          <div key={slide.id} className={className} style={{ background: slide.bgGradient }}>
-            <div className="promo-layout">
+          <div key={slide.id} className={className} style={{ backgroundImage: slide.bgGradient }}>
+            {/* Background Video blended into right side */}
+            {slide.bgVideo && (
+              <video 
+                autoPlay 
+                loop={slide.id !== 2}
+                muted 
+                playsInline 
+                className="slide-bg-video"
+                onLoadedMetadata={(e) => {
+                  if (slide.id === 2) {
+                    e.target.currentTime = 10;
+                  }
+                }}
+                onTimeUpdate={(e) => {
+                  if (slide.id === 2 && e.target.currentTime >= 20) {
+                    e.target.currentTime = 10;
+                    e.target.play();
+                  }
+                }}
+              >
+                <source src={slide.bgVideo} type="video/mp4" />
+              </video>
+            )}
+
+            {/* Ultra UI Aurora Glows (only if no video) */}
+            {!slide.bgVideo && (
+              <>
+                <div className="ultra-glow-orb orb-1"></div>
+                <div className="ultra-glow-orb orb-2"></div>
+                <div className="ultra-glow-orb orb-3"></div>
+              </>
+            )}
+            
+            <div className="promo-layout" style={{ position: 'relative', zIndex: 2 }}>
               {/* Left Content */}
               <div className="promo-text-col">
                 <h3 className="promo-small-title">{slide.productName}</h3>
                 <h1 className="promo-main-title">{slide.mainTitle}</h1>
-                <div className="promo-offer-box">{slide.offer}</div>
                 <button className="promo-shop-btn">Shop Now &gt;</button>
               </div>
 
               {/* Center Content (Product) */}
               <div className="promo-product-col">
                 <img src={slide.productImg} alt={slide.productName} className="promo-product-img" />
-                <div className="promo-starburst">
-                  <span className="price-cut">{slide.originalPrice}</span>
-                  <span className="price-new">{slide.discountPrice}</span>
-                </div>
               </div>
 
-              {/* Right Content (Before/After) */}
-              <div className="promo-ba-col">
-                <div className="promo-ba-wrapper">
-                  <img src={slide.baImg} alt="Before and After" className="promo-ba-img" />
-                </div>
-              </div>
             </div>
           </div>
         );

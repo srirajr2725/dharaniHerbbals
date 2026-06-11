@@ -7,14 +7,14 @@ import './ShoppableVideos.css';
 import p1 from '../assets/1.png';
 import p2 from '../assets/2.png';
 import p3 from '../assets/3.png';
-import p4 from '../assets/4.png';
+import p4 from '../assets/6.png';
 import p5 from '../assets/5.png';
 
 const videoData = [
-  { id: 1, videoId: 'g2o_B7Awom0', productImg: p1, title: 'CARROT MALT', price: '₹249' },
-  { id: 2, videoId: 'k7pgmv4MymQ', productImg: p2, title: 'BEETROOT MALT', price: '₹249' },
-  { id: 3, videoId: 'YSBQgO7NNps', productImg: p3, title: 'MULTANI MITTI', price: '₹120' },
-  { id: 4, videoId: 'wKI7FM66mMQ', productImg: p4, title: 'NALANGU POWDER', price: '₹180' },
+  { id: 1, videoId: 'XiODT_a0SvI', productImg: p1, title: 'CARROT MALT', price: '₹249' },
+  { id: 2, videoId: 'MUy5fItVciU', productImg: p2, title: 'BEETROOT MALT', price: '₹249' },
+  { id: 3, videoId: 'aU6PrM_jce8', productImg: p3, title: 'MULTANI MITTI', price: '₹120' },
+  { id: 4, videoId: 'v8XHuZw_LIA', productImg: p4, title: 'PAASI PAYIR', price: '₹180' },
   { id: 5, videoId: '8Y3gKyZIDAM', productImg: p5, title: 'WILD TURMERIC', price: '₹140' }
 ];
 

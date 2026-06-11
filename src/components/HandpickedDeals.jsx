@@ -25,9 +25,6 @@ export default function HandpickedDeals() {
     <div className="deals-container">
       <div className="deals-header reveal">
         <div className="deals-title-wrapper">
-          <div className="deals-icon-box">
-            <Tag size={28} color="white" fill="white" />
-          </div>
           <h2 className="deals-title">Handpicked Deals</h2>
         </div>
         <p className="deals-subtitle">
@@ -64,9 +61,8 @@ export default function HandpickedDeals() {
               
               <div className="deal-bottom-row">
                 <div className="deal-price">{product.price}</div>
-                <button className="deal-buy-btn" onClick={() => addToCart(product)}>
-                  <ShoppingCart size={18} />
-                  <span>Grab Deal</span>
+                <button className="deal-buy-btn" onClick={() => addToCart(product)} aria-label="Grab Deal">
+                  <ShoppingCart size={20} />
                 </button>
               </div>
             </div>

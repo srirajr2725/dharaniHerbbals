@@ -108,11 +108,20 @@
 
 /* Bottom WhatsApp Signup Section */
 .pf-signup-section {
-  background: #16a34a; /* Solid vibrant green */
-  padding: 80px 20px;
+  background: linear-gradient(135deg, #022c22 0%, #065f46 50%, #10b981 100%);
+  background-size: 200% 200%;
+  animation: gradientFlow 10s ease infinite;
+  padding: 100px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 20px 40px rgba(0,0,0,0.2);
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Animated Ambient Orbs */
@@ -168,16 +177,16 @@
 }
 
 .pf-signup-title {
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 900;
   color: white;
   margin: 0 0 16px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  letter-spacing: 1px;
+  text-shadow: 0 4px 16px rgba(0,0,0,0.3);
 }
 
 .pf-waving-leaf {
@@ -215,15 +224,16 @@
 
 .pf-whatsapp-input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   padding: 16px 24px;
-  border-radius: 12px;
+  border-radius: 50px;
   color: white;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   outline: none;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 }
 
 .pf-whatsapp-input::placeholder {
@@ -238,12 +248,12 @@
 }
 
 .pf-shiny-btn {
-  background: white;
-  color: #16a34a;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  color: #065f46;
   border: none;
   padding: 0 32px;
-  border-radius: 12px;
-  font-size: 1.05rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   display: flex;
@@ -251,8 +261,8 @@
   gap: 10px;
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 /* The sweeping shine effect on button */

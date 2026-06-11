@@ -1,69 +1,44 @@
-import { Sparkles, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import './OurJourney.css';
-
-// Using a placeholder asset. Replace with the actual team photo later.
-import teamPhoto from '../assets/grp.png'; 
+import teamPhoto from '../assets/grp.png';
 
 export default function OurJourney() {
-  const navigate = useNavigate();
   return (
-    <div className="journey-container">
-      
-      {/* Header Area */}
-      <div className="journey-header">
-        <div className="journey-title-wrapper">
-          <div className="journey-icon-box">
-            <Sparkles size={28} color="white" fill="white" />
-          </div>
-          <h2 className="journey-title">Our Journey</h2>
-        </div>
-        <div className="journey-divider"></div>
-      </div>
-
-      {/* Split Content Area */}
-      <div className="journey-content-wrapper">
+    <div className="journey-editorial-container">
+      <div className="journey-editorial-content">
         
-        {/* Left Side: Story Text */}
-        <div className="journey-text-content">
-          <p className="journey-tagline">
-            It didn't start with a product. It started with a question.
+        <p className="journey-ed-sub reveal" style={{animationDelay: '0.1s'}}>
+          Our Journey
+        </p>
+
+        <p className="journey-ed-intro reveal" style={{animationDelay: '0.2s'}}>
+          It didn't start with a product.<br/>It started with a question.
+        </p>
+
+        <h2 className="journey-ed-quote reveal" style={{animationDelay: '0.3s'}}>
+          "What if healing could be simple again?"
+        </h2>
+
+        <div className="journey-ed-narrative">
+          <p className="reveal" style={{animationDelay: '0.4s'}}>
+            Our journey began in 2004 with dedicated research into Siddha and Ayurveda, exploring the depth of natural healing and time-tested traditions.
           </p>
           
-          <h3 className="journey-heading">What if healing could be simple again?</h3>
-          
-          <div className="journey-paragraphs">
-            <p>
-              Our journey began in 2004 with dedicated research into Siddha and Ayurveda, exploring the depth of natural healing and time-tested traditions.
-            </p>
-            <p>
-              In a world overwhelmed by artificial solutions and quick fixes, we chose a different path — one that returns to purity, to tradition, and to the quiet power of nature.
-            </p>
-            <p>
-              Every product we create reflects this commitment, blending ancient wisdom with modern care to deliver safe, effective, and truly natural healing.
-            </p>
-          </div>
-
-          <p className="journey-closing">
-            Back to roots. Forward to better living.
+          <p className="reveal" style={{animationDelay: '0.5s'}}>
+            In a world overwhelmed by artificial solutions and quick fixes, we chose a different path — one that returns to purity, to tradition, and to the quiet power of nature.
           </p>
-
-          <div className="journey-actions">
-            <button className="btn-explore-solid" onClick={() => navigate('/shop')}>
-              Explore Our Products <ArrowRight size={18} />
-            </button>
-            <button className="btn-get-touch-outline" onClick={() => navigate('/contact')}>
-              Get In Touch
-            </button>
-          </div>
+          
+          <p className="reveal" style={{animationDelay: '0.6s'}}>
+            Every product we create reflects this commitment, blending ancient wisdom with modern care to deliver safe, effective, and truly natural healing.
+          </p>
         </div>
 
-        {/* Right Side: Team Photo */}
-        <div className="journey-image-content">
-          <div className="journey-image-glow-wrapper">
-            <img src={teamPhoto} alt="Dharani Herbbals Team" className="journey-team-photo" />
-          </div>
+        <div className="journey-ed-image-wrapper reveal" style={{animationDelay: '0.7s'}}>
+          <img src={teamPhoto} alt="Our Journey" className="journey-ed-image" />
         </div>
+
+        <p className="journey-ed-closing reveal" style={{animationDelay: '0.8s'}}>
+          Back to roots. Forward to better living.
+        </p>
 
       </div>
     </div>

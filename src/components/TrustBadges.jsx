@@ -13,17 +13,10 @@ function useCountUp(endValue, duration, startCounting) {
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      // Easing function for smooth deceleration
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      
       setCount(Math.floor(easeOutQuart * endValue));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(endValue);
-      }
+      if (progress < 1) requestAnimationFrame(animate);
+      else setCount(endValue);
     };
     
     requestAnimationFrame(animate);
@@ -34,95 +27,118 @@ function useCountUp(endValue, duration, startCounting) {
 
 export default function TrustBadges() {
   const [isVisible, setIsVisible] = useState(false);
-  const bannerRef = useRef(null);
+  const containerRef = useRef(null);
 
-  // Intersection Observer to trigger animations when scrolled into view
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Only run once
+          observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
-
-    if (bannerRef.current) {
-      observer.observe(bannerRef.current);
-    }
-
+    if (containerRef.current) observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Animated values
   const yearsCount = useCountUp(15, 2000, isVisible);
   const customersCount = useCountUp(6, 2500, isVisible);
   const productsCount = useCountUp(350, 2000, isVisible);
   const purityCount = useCountUp(100, 2000, isVisible);
 
   return (
-    <div className="trust-container" ref={bannerRef}>
+    <div className="prof-trust-container" ref={containerRef}>
       
-      {/* Top Green Stats Banner with Shimmer Effect */}
-      <div className={`trust-stats-banner ${isVisible ? 'animate-reveal' : 'opacity-0'}`}>
-        <div className="banner-shimmer"></div>
-        <div className="trust-stat-item">
-          <h3 className="trust-stat-number">{yearsCount}+</h3>
-          <p className="trust-stat-label">Legacy of Trust</p>
-        </div>
-        <div className="trust-stat-item">
-          <h3 className="trust-stat-number">{customersCount}L+</h3>
-          <p className="trust-stat-label">Customers Served</p>
-        </div>
-        <div className="trust-stat-item">
-          <h3 className="trust-stat-number">{productsCount}+</h3>
-          <p className="trust-stat-label">Products Crafted</p>
-        </div>
-        <div className="trust-stat-item">
-          <h3 className="trust-stat-number">{purityCount}%</h3>
-          <p className="trust-stat-label">Chemical-Free</p>
+      {/* Top Stats Marquee */}
+      <div className={`prof-stats-marquee-container ${isVisible ? 'reveal-active' : ''}`}>
+        <div className="prof-stats-marquee-track">
+          
+          {/* Group 1 */}
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{yearsCount}+</h3>
+            <p className="prof-stat-label">Legacy of Trust</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{customersCount}L+</h3>
+            <p className="prof-stat-label">Customers Served</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{productsCount}+</h3>
+            <p className="prof-stat-label">Products Crafted</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{purityCount}%</h3>
+            <p className="prof-stat-label">Chemical-Free</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+
+          {/* Group 2 (Duplicate for seamless loop) */}
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{yearsCount}+</h3>
+            <p className="prof-stat-label">Legacy of Trust</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{customersCount}L+</h3>
+            <p className="prof-stat-label">Customers Served</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{productsCount}+</h3>
+            <p className="prof-stat-label">Products Crafted</p>
+          </div>
+          <div className="prof-stat-divider"></div>
+          <div className="prof-stat-item">
+            <h3 className="prof-stat-number">{purityCount}%</h3>
+            <p className="prof-stat-label">Chemical-Free</p>
+          </div>
+
         </div>
       </div>
 
       {/* Feature Cards Row */}
-      <div className="trust-features-grid">
+      <div className="prof-features-grid">
         
-        {/* Card 1: Natural Ingredients */}
-        <div className={`trust-feature-card card-green ${isVisible ? 'animate-slide-up-1' : 'opacity-0'}`}>
-          <div className="trust-icon-box green">
-            <Leaf size={24} color="#22c55e" className="feature-icon" />
+        {/* Card 1 */}
+        <div className={`prof-feature-card ${isVisible ? 'reveal-active slide-delay-1' : ''}`}>
+          <div className="prof-icon-wrapper">
+            <Leaf size={36} strokeWidth={1.5} color="#166534" />
           </div>
-          <div className="trust-feature-content">
-            <h4 className="trust-feature-title">100% Natural Ingredients</h4>
-            <p className="trust-feature-desc">
-              We source only the finest natural herbs and ingredients, ensuring purity and potency in every product.
+          <div className="prof-feature-content">
+            <h4 className="prof-feature-title">100% Natural Ingredients</h4>
+            <p className="prof-feature-desc">
+              We source only the finest natural herbs and ingredients, ensuring uncompromising purity and potency in every formulation.
             </p>
           </div>
         </div>
 
-        {/* Card 2: Quality Assurance */}
-        <div className={`trust-feature-card card-blue ${isVisible ? 'animate-slide-up-2' : 'opacity-0'}`}>
-          <div className="trust-icon-box blue">
-            <ShieldCheck size={24} color="#3b82f6" className="feature-icon" />
+        {/* Card 2 */}
+        <div className={`prof-feature-card ${isVisible ? 'reveal-active slide-delay-2' : ''}`}>
+          <div className="prof-icon-wrapper">
+            <ShieldCheck size={36} strokeWidth={1.5} color="#166534" />
           </div>
-          <div className="trust-feature-content">
-            <h4 className="trust-feature-title">Quality Assurance</h4>
-            <p className="trust-feature-desc">
-              Every product undergoes rigorous testing and quality checks to meet the highest safety standards.
+          <div className="prof-feature-content">
+            <h4 className="prof-feature-title">Quality Assurance</h4>
+            <p className="prof-feature-desc">
+              Every product undergoes rigorous clinical testing and quality checks to meet the highest international safety standards.
             </p>
           </div>
         </div>
 
-        {/* Card 3: Traditional Wisdom */}
-        <div className={`trust-feature-card card-purple ${isVisible ? 'animate-slide-up-3' : 'opacity-0'}`}>
-          <div className="trust-icon-box purple">
-            <Award size={24} color="#a855f7" className="feature-icon" />
+        {/* Card 3 */}
+        <div className={`prof-feature-card ${isVisible ? 'reveal-active slide-delay-3' : ''}`}>
+          <div className="prof-icon-wrapper">
+            <Award size={36} strokeWidth={1.5} color="#166534" />
           </div>
-          <div className="trust-feature-content">
-            <h4 className="trust-feature-title">Traditional Wisdom</h4>
-            <p className="trust-feature-desc">
-              Our formulations are based on ancient Ayurvedic principles, refined through generations of knowledge.
+          <div className="prof-feature-content">
+            <h4 className="prof-feature-title">Traditional Wisdom</h4>
+            <p className="prof-feature-desc">
+              Our bespoke formulations are firmly rooted in ancient Ayurvedic principles, meticulously refined through generations of knowledge.
             </p>
           </div>
         </div>

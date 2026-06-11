@@ -449,7 +449,13 @@
   }
   
   .pd-pro-actions {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .pro-qty-selector {
+    flex: 0 0 auto;
   }
   
   .pd-pro-trust {

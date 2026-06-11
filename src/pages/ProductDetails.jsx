@@ -5,6 +5,8 @@ import { ShoppingCart, ShieldCheck, Leaf, Truck, ChevronDown, ChevronUp } from '
 import imgLifestyle from '../assets/herbal_lifestyle.png';
 import imgIngredients from '../assets/herbal_ingredients.png';
 import imgTexture from '../assets/herbal_texture.png';
+import model3d from '../assets/3d.glb?url';
+import metti3d from '../assets/metti3d.glb?url';
 import { useCart } from '../context/CartContext';
 import './ProductDetails.css';
 
@@ -30,8 +32,29 @@ export default function ProductDetails() {
     );
   }
 
-  // Combine main product image with newly generated slider images
-  const images = [product.image, imgLifestyle, imgIngredients, imgTexture];
+  // Determine which 3D model to use based on product
+  let active3DModel = null;
+  if (product.id === 1) {
+    active3DModel = model3d;
+  } else if (product.id === 3) {
+    active3DModel = metti3d;
+  }
+
+  // Build Media array
+  const mediaItems = [];
+  
+  if (active3DModel) {
+    mediaItems.push({ type: '3d', src: active3DModel, thumb: product.image });
+  }
+  
+  mediaItems.push(
+    { type: 'image', src: product.image, thumb: product.image },
+    { type: 'image', src: imgLifestyle, thumb: imgLifestyle },
+    { type: 'image', src: imgIngredients, thumb: imgIngredients },
+    { type: 'image', src: imgTexture, thumb: imgTexture }
+  );
+
+  const currentMedia = mediaItems[currentImgIndex];
 
   return (
     <div className="pd-pro-wrapper">
@@ -49,27 +72,46 @@ export default function ProductDetails() {
         <div className="pd-pro-gallery">
           {/* Vertical Thumbnails */}
           <div className="pd-pro-thumbnails-vertical">
-            {images.map((img, idx) => (
+            {mediaItems.map((item, idx) => (
               <div 
                 key={idx} 
                 className={`pd-pro-thumb ${currentImgIndex === idx ? 'active' : ''}`}
                 onMouseEnter={() => setCurrentImgIndex(idx)}
                 onClick={() => setCurrentImgIndex(idx)}
+                style={{ position: 'relative' }}
               >
-                <img src={img} alt={`Thumbnail ${idx + 1}`} />
+                <img src={item.thumb} alt={`Thumbnail ${idx + 1}`} />
+                {item.type === '3d' && (
+                  <div style={{ position: 'absolute', bottom: '4px', right: '4px', background: '#22c55e', color: 'white', fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+                    3D
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
-          {/* Main Image */}
+          {/* Main Media Container */}
           <div className="pd-pro-main-image-container">
-            <img 
-              key={currentImgIndex}
-              src={images[currentImgIndex]} 
-              alt={product.name} 
-              className="pd-pro-main-image"
-            />
-            {product.badge && (
+            {currentMedia.type === '3d' ? (
+              <model-viewer
+                src={currentMedia.src}
+                alt={product.name}
+                auto-rotate
+                camera-controls
+                shadow-intensity="1"
+                environment-image="neutral"
+                style={{ width: '100%', height: '100%', minHeight: '500px', backgroundColor: '#f9fafb', borderRadius: '24px' }}
+              ></model-viewer>
+            ) : (
+              <img 
+                key={currentImgIndex}
+                src={currentMedia.src} 
+                alt={product.name} 
+                className="pd-pro-main-image"
+              />
+            )}
+            
+            {product.badge && currentMedia.type !== '3d' && (
               <div className={`pro-badge badge-${product.badgeColor}`}>
                 {product.badge}
               </div>
@@ -155,16 +197,6 @@ export default function ProductDetails() {
                   <li>Zero Artificial Colors</li>
                   <li>No Preservatives</li>
                 </ul>
-              </div>
-            </div>
-
-            <div className={`accordion-item ${activeTab === 'howToUse' ? 'open' : ''}`}>
-              <button className="accordion-header" onClick={() => setActiveTab(activeTab === 'howToUse' ? '' : 'howToUse')}>
-                How to Use
-                {activeTab === 'howToUse' ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-              </button>
-              <div className="accordion-body">
-                <p>Take a small amount and apply gently. Use daily for best results. Store in a cool, dry place away from direct sunlight.</p>
               </div>
             </div>
           </div>

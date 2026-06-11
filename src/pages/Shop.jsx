@@ -205,9 +205,6 @@ const ProductCard = ({ product }) => {
     <div className="product-card vilvah">
       <Link to={`/product/${product.id}`} className="product-img-link" style={{ textDecoration: 'none' }}>
         <div className="product-img-wrapper">
-          {product.badge && product.badgeColor !== 'green-circle' && (
-            <div className={`product-badge badge-${product.badgeColor}`}>{product.badge}</div>
-          )}
           <img src={product.image} alt={product.name} className="product-img" />
         </div>
       </Link>
@@ -224,19 +221,21 @@ const ProductCard = ({ product }) => {
         </Link>
         <p className="product-subtitle">{product.subtitle}</p>
         
-        <div className="product-price-block">
-          <span className="current-price">{product.price}</span>
-          {product.originalPrice && <span className="original-price">{product.originalPrice}</span>}
-          {product.discount && (
-            <span className="discount-pill">
-              <span className="discount-dot">•</span> {product.discount}
-            </span>
-          )}
+        <div className="product-price-row">
+          <div className="product-price-block">
+            <span className="current-price">{product.price}</span>
+            {product.originalPrice && <span className="original-price">{product.originalPrice}</span>}
+            {product.discount && (
+              <span className="discount-pill">
+                <span className="discount-dot">•</span> {product.discount}
+              </span>
+            )}
+          </div>
+          
+          <button className="btn-add-to-cart-icon" onClick={(e) => { e.preventDefault(); addToCart(product); }} title="Add to Cart">
+            <ShoppingCart size={20} />
+          </button>
         </div>
-        
-        <button className="btn-add-to-cart" onClick={() => addToCart(product)}>
-          Add To Cart
-        </button>
       </div>
     </div>
   );
@@ -252,7 +251,7 @@ export default function Shop() {
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
@@ -266,7 +265,7 @@ export default function Shop() {
           </p>
         </div>
 
-        <div className="product-grid reveal" style={{ marginTop: '40px' }}>
+        <div className="product-grid reveal-stagger" style={{ marginTop: '40px' }}>
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
